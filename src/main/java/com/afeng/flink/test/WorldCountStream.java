@@ -3,6 +3,7 @@ package com.afeng.flink.test;
 import com.afeng.flink.util.Utils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.flink.api.java.tuple.Tuple2;
+import org.apache.flink.api.java.utils.ParameterTool;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 /**
@@ -12,6 +13,12 @@ import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 @Slf4j
 public class WorldCountStream {
     public static void main(String[] args) throws Exception {
+
+        ParameterTool parameterTool = ParameterTool.fromArgs(args);
+        String host = parameterTool.get("host");
+        Integer port = parameterTool.getInt("port");
+
+        // 可以用 【命令：nc -lk 9999】 socket 方式模拟流式输入
 
         // 创建流处理执行环境
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
