@@ -1,5 +1,6 @@
 package com.afeng.flink.test;
 
+import com.afeng.flink.util.Utils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.streaming.api.datastream.DataStream;
@@ -15,7 +16,10 @@ public class WorldCountStream {
         // 创建流处理执行环境
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
-        DataStream<String> inputDataStream = env.readTextFile("/Users/xuefeng/self_github/flink-learning/src/main/resources/hello");
+        Utils utils = new Utils();
+        String path = utils.getResourceFilePath("hello");
+        log.warn(path);
+        DataStream<String> inputDataStream = env.readTextFile(path);
 
         // 基于数据流进行转换操作
         DataStream<Tuple2<String, Integer>> resultStream = inputDataStream.flatMap(new WorldCountBatch.MyFlatMapper())

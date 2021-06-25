@@ -1,5 +1,6 @@
 package com.afeng.flink.test;
 
+import com.afeng.flink.util.Utils;
 import org.apache.flink.api.common.functions.FlatMapFunction;
 import org.apache.flink.api.java.DataSet;
 import org.apache.flink.api.java.ExecutionEnvironment;
@@ -16,7 +17,9 @@ public class WorldCountBatch {
         ExecutionEnvironment env = ExecutionEnvironment.getExecutionEnvironment();
 
         // 从文件中读入数据
-        DataSet<String> inputDataSet = env.readTextFile("/Users/xuefeng/self_github/flink-learning/src/main/resources/hello");
+        Utils utils = new Utils();
+        String path = utils.getResourceFilePath("hello");
+        DataSet<String> inputDataSet = env.readTextFile(path);
 
         DataSet<Tuple2<String, Integer>> resultDataSet = inputDataSet.flatMap(new MyFlatMapper())
                 .groupBy(0) // 按照第一个位置 word 分组
