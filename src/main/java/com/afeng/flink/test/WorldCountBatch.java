@@ -24,7 +24,7 @@ public class WorldCountBatch {
         resultDataSet.print();
     }
 
-    private static class MyFlatMapper implements FlatMapFunction<String, Tuple2<String, Integer>> {
+    public static class MyFlatMapper implements FlatMapFunction<String, Tuple2<String, Integer>> {
         @Override
         public void flatMap(String value, Collector<Tuple2<String, Integer>> out) throws Exception {
             // 按空格分词
