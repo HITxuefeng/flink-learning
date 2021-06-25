@@ -24,6 +24,7 @@ public class WorldCountBatch {
         DataSet<Tuple2<String, Integer>> resultDataSet = inputDataSet.flatMap(new MyFlatMapper())
                 .groupBy(0) // 按照第一个位置 word 分组
                 .sum(1); // 将第二个位置上的数值求和
+
         resultDataSet.print();
     }
 
